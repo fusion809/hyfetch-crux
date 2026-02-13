@@ -1,0 +1,32 @@
+# Description: Neofetch fork with LGBTQ+ pride flag coloration (HyFetch)
+# URL: https://github.com/hykilpikonna/hyfetch
+# Depends on: rust
+# License: MIT
+
+name=hyfetch
+version=2.0.5
+release=1
+
+# Source archive from GitHub releases
+source=(
+    "https://github.com/hykilpikonna/hyfetch/archive/$version.tar.gz"
+)
+
+# renames lets us control how the source file is saved
+renames=(
+    "hyfetch-$version.tar.gz"
+)
+
+build() {
+    cd "$name-$version"
+
+    # Compile with cargo
+    cargo build --release
+
+    # Install to $PKG (CRUX package root)
+    mkdir -p "$PKG/usr/bin"
+    cp "target/release/hyfetch" "$PKG/usr/bin/"
+}
+
+# No tests by default
+# No additional dependency handling for Rust; assumes rust/cargo installed
